@@ -1,0 +1,78 @@
+server:
+  port: 8070
+  servlet:
+    context-path: /
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+
+spring:
+  mvc:
+    view:
+      prefix: /WEB-INF/views/
+      suffix: .jsp
+
+# 파일 리턴 기본 경로 : src/main/resources/static => 정적인 파일들을 모아두는곳(html, png,jpg…)
+# src/main/webapp/WEB-INF/views => 동적인 파일들을 모아두는 곳(jsp) ---- src/main 밑에 webapp/WEB-INF/views 폴더를 생성
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/insta?serverTimezone=Asia/Seoul
+    username: insta
+    password: insta
+
+#  datasource:
+#    driver-class-name: oracle.jdbc.OracleDriver
+#    url: jdbc:oracle:thin:@localhost:9090:xe
+#    username: sundor
+#    password: anaroshi
+
+
+#  <!-- CP를 만들기 위한 설정 : Oracle 접근 정보 -->
+#  <bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
+#    <!-- setter를 이용한 데이터 전달(DI) -->
+#<!--    <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" /> -->
+#<!--    <property name="jdbcUrl" value="jdbc:oracle:thin:@localhost:9090:xe" /> -->
+#    <property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy" />
+#    <property name="jdbcUrl" value="jdbc:log4jdbc:oracle:thin:@localhost:9090:xe" />
+#    <property name="username" value="webjjang" />
+#    <property name="password" value="webjjang" />
+#  </bean>
+
+#  jpa:
+#    open-in-view: false
+#    generate-ddl: true    
+#    hibernate:
+#      ddl-auto: create # create update
+#      naming:
+#        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+#        use-new-id-generator-mappings: false
+#    show-sql: true
+#    properties:
+#      hibernate.enable_lazy_load_no_trans: true
+#      hibernate.format_sql: true
+      
+  jackson:
+    serialization:
+      fail-on-empty-beans: false
+
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 2MB
+            
+  security:
+    user:
+      name: test
+      password: 1234
+
+# 외부로 이미지 저장 위치 옮김
+# 외부 폴더 classpath 잡기(사진 업로드시 파일 I/O하는 시간보다 해당 페이지로 넘어오는 시간이 더 빠르기 때문에 이미지가 액박으로 표시된다.)
+file:
+  path: /home/sundor/workspace/spring4/main/resources/upload/
+  
+#file:
+#  path: /home/sundor/workspace/spring4/insta/src/main/resources/upload/  
+
+ 
