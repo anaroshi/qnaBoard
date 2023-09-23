@@ -144,10 +144,13 @@ public class MainController {
 	@ResponseBody
 	public String showMbti2(@PathVariable String name) {
 		return switch (name) {
-		case "홍길동" -> "INFP";
-		case "홍길순" -> "ENFP";
+		case "홍길순" -> {
+			char j = 'J';
+			yield "ENF" + j;
+		}
 		case "임꺽정" -> "ESFJ";
 		case "sundor" -> "ISTJ";
+		case "홍길동", "바다미" -> "INFP";
 		default -> "모름";
 		};
 	}
