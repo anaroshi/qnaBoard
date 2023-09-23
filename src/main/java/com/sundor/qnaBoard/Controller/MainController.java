@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 
 @Controller
 public class MainController {
@@ -171,6 +173,7 @@ public class MainController {
 		return String.format("세션변수 %s의 값이 %s(으)로 설정되었습니다.", name, value);
 	}
 
+	// http://localhost:8070/getSession/sundor
 	// 세션 얻기
 	@GetMapping("/getSession/{name}")
 	@ResponseBody
@@ -180,5 +183,26 @@ public class MainController {
 
 		return String.format("세션변수 %s의 값은 %s입니다.", name, value);
 
+	}
+
+	// http://localhost:8070/addArticle?title=test&body=it's testing
+	@GetMapping("/addArticle")
+	@ResponseBody
+	public String addArticle(String title, String body) {
+		System.out.println("title : " + title);
+		System.out.println("body : " + body);
+		int id = 1;
+		Article article = new Article(id, title, body);
+
+		System.out.println("article" + article);
+		return String.format("%d번 게시물이 생성되었습니다.", id);
+	}
+
+	@Data
+	@AllArgsConstructor
+	class Article {
+		private int id;
+		private String title;
+		private String body;
 	}
 }
