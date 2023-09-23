@@ -18,9 +18,9 @@ spring:
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/insta?serverTimezone=Asia/Seoul
-    username: insta
-    password: insta
+    url: jdbc:mysql://localhost:3306/springbasic?serverTimezone=Asia/Seoul
+    username: metacoding
+    password: metacoding
 
 #  datasource:
 #    driver-class-name: oracle.jdbc.OracleDriver

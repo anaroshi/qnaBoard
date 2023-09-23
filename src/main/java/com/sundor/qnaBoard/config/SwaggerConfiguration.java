@@ -22,7 +22,7 @@ public class SwaggerConfiguration {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.study.testproject.controller"))
+                .apis(RequestHandlerSelectors.basePackage("com.sundor.qnaBoard.controller"))
                 .paths(PathSelectors.any())
                 .build();
     }
