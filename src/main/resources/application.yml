@@ -52,7 +52,14 @@ spring:
 #    properties:
 #      hibernate.enable_lazy_load_no_trans: true
 #      hibernate.format_sql: true
-      
+
+  #  Devtools와 Chrome Live Reload Plugin 을 이용한 개발 환경 설정
+  devtools:
+    livereload:
+      enabled: true  # livereload 사용시 활성화
+    restart:
+      enabled: true  # 운영 에서는 제거.
+          
   jackson:
     serialization:
       fail-on-empty-beans: false
