@@ -8,7 +8,8 @@ public class QnaBoardApplication {
 
 	public static void main(String[] args) {
 		System.out.println(".... success....");
+//		System.setProperty("spring.devtools.restart.enabled", "false");
+
 		SpringApplication.run(QnaBoardApplication.class, args);
 	}
-
 }
