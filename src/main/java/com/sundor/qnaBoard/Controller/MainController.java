@@ -189,20 +189,24 @@ public class MainController {
 	@GetMapping("/addArticle")
 	@ResponseBody
 	public String addArticle(String title, String body) {
-		System.out.println("title : " + title);
-		System.out.println("body : " + body);
-		int id = 1;
-		Article article = new Article(id, title, body);
+
+		Article article = new Article(title, body);
 
 		System.out.println("article" + article);
-		return String.format("%d번 게시물이 생성되었습니다.", id);
+		return String.format("%d번 게시물이 생성되었습니다.", article.getId());
 	}
 
 	@Data
 	@AllArgsConstructor
 	class Article {
+		private static int lastId = 0; // static은 프로그램이 처음 시작할때 딱 한번 실행된다. 만들어 진다.
+
 		private int id;
 		private String title;
 		private String body;
+
+		public Article(String title, String body) {
+			this(++lastId, title, body);
+		}
 	}
 }
