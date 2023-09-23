@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class MainController {
@@ -153,5 +154,31 @@ public class MainController {
 		case "홍길동", "바다미" -> "INFP";
 		default -> "모름";
 		};
+	}
+
+	// 세션에 정보 저장하기
+	// http://localhost:8070/saveSession/sundor/10
+	@GetMapping("/saveSession/{name}/{value}")
+	@ResponseBody
+	public String SaveSession(@PathVariable String name, @PathVariable String value, HttpSession session) {
+		System.out.println(name);
+		System.out.println(value);
+
+		session.setAttribute(name, value);
+
+		// return "세션변수 %s의 값이 %s(으)로 설정되었습니다.".formatted(name, value); //Java SE 15
+		// (JDK 15) [since 2020].
+		return String.format("세션변수 %s의 값이 %s(으)로 설정되었습니다.", name, value);
+	}
+
+	// 세션 얻기
+	@GetMapping("/getSession/{name}")
+	@ResponseBody
+	public String getSession(@PathVariable String name, HttpSession session) {
+		// req => 쿠키 => JSESSIONID => 세션을 얻을 수 있다.
+		String value = (String) session.getAttribute(name);
+
+		return String.format("세션변수 %s의 값은 %s입니다.", name, value);
+
 	}
 }
