@@ -8,7 +8,6 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -239,15 +238,21 @@ public class MainController {
 		return String.format("%d번 게시물을 수정하였습니다.", id);
 	}
 
-	// http://localhost:8070/article/1
-	@DeleteMapping("/article/{id}")
+	// http://localhost:8070/deleteArticle/1
+	@GetMapping("/deleteArticle/{id}")
 	@ResponseBody
-	public Article deleteArticle(@PathVariable int id) {
+	public String deleteArticle(@PathVariable int id) {
 		System.out.println("id : " + id);
 		System.out.println("articles : " + articles);
 		// id가 1번인 게시물이 앞에서 3번째 있으면 더이상 실행하지 않고 return함
 		Article article = articles.stream().filter(a -> a.getId() == id).findFirst().orElse(null);
-		return article;
+
+		if (article == null) {
+			return String.format("%d번 게시물은 존재하지 않습니다.", id);
+		}
+
+		articles.remove(article);
+		return String.format("%d번 게시물을 삭제하였습니다.", id);
 	}
 
 	@Data
