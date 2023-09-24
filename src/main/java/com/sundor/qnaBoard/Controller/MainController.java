@@ -1,6 +1,9 @@
 package com.sundor.qnaBoard.Controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -185,15 +188,50 @@ public class MainController {
 
 	}
 
+	// private List<Article> articles = new ArrayList<>();
+	private List<Article> articles = new ArrayList<>(
+			Arrays.asList(new Article("제목", "내용"), new Article("test", "it's testing")));
+
 	// http://localhost:8070/addArticle?title=test&body=it's testing
 	@GetMapping("/addArticle")
 	@ResponseBody
 	public String addArticle(String title, String body) {
 
 		Article article = new Article(title, body);
+		articles.add(article);
 
 		System.out.println("article" + article);
 		return String.format("%d번 게시물이 생성되었습니다.", article.getId());
+	}
+
+	// http://localhost:8070/article/1
+	@GetMapping("/article/{id}")
+	@ResponseBody
+	public Article getArticle(@PathVariable int id) {
+		System.out.println("id : " + id);
+		System.out.println("articles : " + articles);
+		// id가 1번인 게시물이 앞에서 3번째 있으면 더이상 실행하지 않고 return함
+		Article article = articles.stream().filter(a -> a.getId() == id).findFirst().get();
+		return article;
+	}
+
+	// http://localhost:8070/modifyArticle?id=1&title=happy&body=offday
+	@GetMapping("/modifyArticle/{id}")
+	@ResponseBody
+	public String modifyArticle(@PathVariable int id, String title, String body) {
+		System.out.println("id : " + id);
+		System.out.println("articles : " + articles);
+		// id가 1번인 게시물이 앞에서 3번째 있으면 더이상 실행하지 않고 return함
+		Article article = articles.stream().filter(a -> a.getId() == id).findFirst().get();
+
+		if (article == null) {
+			return String.format("%d번 게시물은 존재하지 않습니다.", id);
+		}
+
+		article.setTitle(title);
+		article.setBody(body);
+
+		return String.format("%d번 게시물을 수정하였습니다.", id);
 	}
 
 	@Data
@@ -209,4 +247,5 @@ public class MainController {
 			this(++lastId, title, body);
 		}
 	}
+
 }
