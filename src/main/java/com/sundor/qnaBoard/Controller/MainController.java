@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -211,18 +212,22 @@ public class MainController {
 		System.out.println("id : " + id);
 		System.out.println("articles : " + articles);
 		// id가 1번인 게시물이 앞에서 3번째 있으면 더이상 실행하지 않고 return함
-		Article article = articles.stream().filter(a -> a.getId() == id).findFirst().get();
+		Article article = articles.stream().filter(a -> a.getId() == id).findFirst().orElse(null);
+		if (article == null) {
+			System.out.println(String.format("%d번 게시물은 존재하지 않습니다.", id));
+			return null;
+		}
 		return article;
 	}
 
-	// http://localhost:8070/modifyArticle?id=1&title=happy&body=offday
+	// http://localhost:8070/modifyArticle/1?title=happy&body=offday
 	@GetMapping("/modifyArticle/{id}")
 	@ResponseBody
 	public String modifyArticle(@PathVariable int id, String title, String body) {
 		System.out.println("id : " + id);
 		System.out.println("articles : " + articles);
 		// id가 1번인 게시물이 앞에서 3번째 있으면 더이상 실행하지 않고 return함
-		Article article = articles.stream().filter(a -> a.getId() == id).findFirst().get();
+		Article article = articles.stream().filter(a -> a.getId() == id).findFirst().orElse(null);
 
 		if (article == null) {
 			return String.format("%d번 게시물은 존재하지 않습니다.", id);
@@ -232,6 +237,17 @@ public class MainController {
 		article.setBody(body);
 
 		return String.format("%d번 게시물을 수정하였습니다.", id);
+	}
+
+	// http://localhost:8070/article/1
+	@DeleteMapping("/article/{id}")
+	@ResponseBody
+	public Article deleteArticle(@PathVariable int id) {
+		System.out.println("id : " + id);
+		System.out.println("articles : " + articles);
+		// id가 1번인 게시물이 앞에서 3번째 있으면 더이상 실행하지 않고 return함
+		Article article = articles.stream().filter(a -> a.getId() == id).findFirst().orElse(null);
+		return article;
 	}
 
 	@Data
