@@ -252,7 +252,37 @@ public class MainController {
 		}
 
 		articles.remove(article);
+
+		// 25강 하기.....
 		return String.format("%d번 게시물을 삭제하였습니다.", id);
+	}
+
+	// http://localhost:8070/addPersonOnlyWay?id=1&age=5&name=Ann
+	@GetMapping("/addPersonOnlyWay")
+	@ResponseBody
+	public Person addPersonOnlyWay(int id, int age, String name) {
+
+		Person person = new Person(id, age, name);
+
+		return person;
+	}
+
+	// http://localhost:8070/addPerson?id=1&age=5&name=Ann
+	@GetMapping("/addPerson")
+	@ResponseBody
+	public Person addPerson(Person person) {
+
+		Person person1 = new Person(person.id, person.age, person.name);
+
+		return person1;
+	}
+
+	@Data
+	@AllArgsConstructor
+	class Person {
+		private int id;
+		private int age;
+		private String name;
 	}
 
 	@Data
