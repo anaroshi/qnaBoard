@@ -20,6 +20,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Controller
 public class MainController {
@@ -277,6 +278,7 @@ public class MainController {
 		return person1;
 	}
 
+	// 액션 메서드
 	// http://localhost:8070/addPerson/3?age=5&name=Ann
 	@GetMapping("/addPerson1/{id}")
 	@ResponseBody
@@ -288,6 +290,7 @@ public class MainController {
 	}
 
 	@Data
+	@NoArgsConstructor
 	@AllArgsConstructor
 	class Person {
 		private int id;
