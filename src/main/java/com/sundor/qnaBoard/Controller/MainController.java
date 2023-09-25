@@ -277,6 +277,16 @@ public class MainController {
 		return person1;
 	}
 
+	// http://localhost:8070/addPerson/3?age=5&name=Ann
+	@GetMapping("/addPerson1/{id}")
+	@ResponseBody
+	public Person addPerson1(@PathVariable int id, Person person) {
+
+		Person person1 = new Person(id, person.age, person.name);
+
+		return person1;
+	}
+
 	@Data
 	@AllArgsConstructor
 	class Person {
